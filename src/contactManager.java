@@ -1,5 +1,11 @@
 import java.awt.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
+import java.util.Arrays;
+import java.util.ArrayList;
+
 
 
 public class contactManager {
@@ -15,5 +21,14 @@ public class contactManager {
         int Choice = input.nextInt();
 
         return Choice;
+    }
+
+    public static void viewContacts(){
+        Path contactsPath = Paths.get("data", "contacts.txt");
+        List<String> contactsList = Files.readAllLines(contactsPath);
+
+        for (int i = 0; i < contactsList.size(); i += 1) {
+            System.out.println((i + 1) + ": " + contactsList.get(i));
+        }
     }
 }
