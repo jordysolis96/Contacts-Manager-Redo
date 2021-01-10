@@ -8,6 +8,7 @@ public class contactManager {
 
     public static int Menu() throws IOException {
         Scanner input =  new Scanner(System.in);
+        //Displays Menu
         System.out.println(1 + "." + " View contacts.");
         System.out.println(2 + "." + " Add a new contact.");
         System.out.println(3 + "." + " Search a contact by name.");
@@ -15,7 +16,7 @@ public class contactManager {
         System.out.println(5 + " Exit.");
         System.out.println("Enter an option (1, 2, 3, 4, or 5)");
         int Choice = input.nextInt();
-
+        //Functionality for navigating around the menu
         if(Choice == 1){
             viewContacts();
             System.out.println("Would you like to do something else? If so enter another option!");
@@ -26,6 +27,7 @@ public class contactManager {
         return Menu();
     }
 
+    //Display of contacts
     public static void viewContacts() throws IOException {
         Path contactsPath = Paths.get("src", "contacts.txt");
         List<String> contactsList = Files.readAllLines(contactsPath);
