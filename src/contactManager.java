@@ -2,9 +2,15 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.List;
 public class contactManager {
+
+    private String first;
+    private String last;
+    private String Number;
 
     public static int Menu() throws IOException {
         Scanner input =  new Scanner(System.in);
@@ -39,7 +45,26 @@ public class contactManager {
         for (int i = 0; i < contactsList.size(); i += 1) {
             System.out.println((i + 1) + ": " + contactsList.get(i));
         }
-
-
     }
+
+    public void contactFirst(String first){
+        this.first = first;
+    }
+    public void contactLast(String last){
+        this.last = last;
+    }
+    public void contactNumber(String Number){
+        this.Number = Number;
+    }
+    public String ContactFormat(){
+        return this.first + " " + this.last + " | " this.Number;
+    }
+
+//            public static void addContact() {
+//            Files.write(
+//                    Paths.get("src", "contacts.txt"),
+//                    Arrays.asList(us),
+//                    StandardOpenOption.APPEND
+//            );
+//        }
 }
