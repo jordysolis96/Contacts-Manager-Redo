@@ -1,3 +1,5 @@
+import jdk.internal.util.xml.impl.Input;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -8,9 +10,9 @@ import java.util.Scanner;
 import java.util.List;
 public class contactManager {
 
-    private String first;
-    private String last;
-    private String Number;
+    private String firstName;
+    private String lastName;
+    private String PhoneNumber;
 
     public static int Menu() throws IOException {
         Scanner input =  new Scanner(System.in);
@@ -26,7 +28,9 @@ public class contactManager {
         if(Choice == 1){
             viewContacts();
             System.out.println("Would you like to do something else? If so enter another option!");
-        }else if(Choice == 5){
+        }else if(Choice == 2){
+            addContact();
+        } else if(Choice == 5){
             System.out.println("Goodbye");
             System.exit(0);
         }
@@ -35,6 +39,7 @@ public class contactManager {
 
     //Display of contacts
     public static void viewContacts() throws IOException {
+        System.out.println("\n");
         Path contactsPath = Paths.get("src", "contacts.txt");
         List<String> contactsList = Files.readAllLines(contactsPath);
         try {
@@ -42,29 +47,32 @@ public class contactManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        for (int i = 0; i < contactsList.size(); i += 1) {
+        for (int i = 0; i < contactsList.size(); i ++) {
             System.out.println((i + 1) + ": " + contactsList.get(i));
         }
     }
 
-    public void contactFirst(String first){
-        this.first = first;
-    }
-    public void contactLast(String last){
-        this.last = last;
-    }
-    public void contactNumber(String Number){
-        this.Number = Number;
-    }
-    public String ContactFormat(){
-        return this.first + " " + this.last + " | " this.Number;
+    public void info(String firstName, String lastName, String PhoneNumber){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.PhoneNumber = PhoneNumber;
     }
 
-//            public static void addContact() {
-//            Files.write(
-//                    Paths.get("src", "contacts.txt"),
-//                    Arrays.asList(us),
-//                    StandardOpenOption.APPEND
-//            );
-//        }
+    public String ContactFormat(){
+        return this.firstName + " " + this.lastName + " | " + this.PhoneNumber;
+    }
+
+            public static void addContact() throws IOException {
+                Scanner userInput = new Scanner(System.in);
+                System.out.println("What is the contacts first name?");
+                String firstName = userInput.nextLine();
+                System.out.println("What is the contacts last name?");
+                String lastName = userInput.nextLine();
+                System.out.println("Enter this contacts number");
+                String PhoneNumber = userInput.nextLine();
+            Files.write(
+                    Paths.get("src", "contacts.txt"),
+                    Arrays.asList(firstName + " " + lastName + " | " + PhoneNumber),
+                    StandardOpenOption.APPEND);
+        }
 }
