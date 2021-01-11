@@ -1,5 +1,3 @@
-import jdk.internal.util.xml.impl.Input;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -30,7 +28,9 @@ public class contactManager {
             System.out.println("Would you like to do something else? If so enter another option!");
         }else if(Choice == 2){
             addContact();
-        } else if(Choice == 5){
+        }else if(Choice == 3){
+            Search();
+        }else if(Choice == 5){
             System.out.println("Goodbye");
             System.exit(0);
         }
@@ -38,8 +38,7 @@ public class contactManager {
     }
 
     //Display of contacts
-    public static void viewContacts() throws IOException {
-        System.out.println("\n");
+    public static boolean viewContacts() throws IOException {
         Path contactsPath = Paths.get("src", "contacts.txt");
         List<String> contactsList = Files.readAllLines(contactsPath);
         try {
@@ -50,6 +49,7 @@ public class contactManager {
         for (int i = 0; i < contactsList.size(); i ++) {
             System.out.println((i + 1) + ": " + contactsList.get(i));
         }
+        return false;
     }
 
     public void info(String firstName, String lastName, String PhoneNumber){
@@ -75,4 +75,18 @@ public class contactManager {
                     Arrays.asList(firstName + " " + lastName + " | " + PhoneNumber),
                     StandardOpenOption.APPEND);
         }
+
+        public static void Search() throws IOException {
+            Scanner search = new Scanner(System.in);
+            String Search = search.nextLine();
+            Path contactsPath = Paths.get("data", "contacts.txt");
+            List<String> contactsList = Files.readAllLines(contactsPath);
+
+            for (String contact : contactsList) {
+                if(contactsList.contains(Search)){
+                    System.out.println(viewContacts());
+                }
+            }
+        }
+
 }
