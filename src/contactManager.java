@@ -3,9 +3,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.Arrays;
-import java.util.Scanner;
-import java.util.List;
+import java.util.*;
+
 public class contactManager {
 
     private String firstName;
@@ -29,7 +28,9 @@ public class contactManager {
         }else if(Choice == 2){
             addContact();
         }else if(Choice == 3){
-            Search();
+//            Search();
+        }else if(Choice == 4){
+            delete();
         }else if(Choice == 5){
             System.out.println("Goodbye");
             System.exit(0);
@@ -76,17 +77,66 @@ public class contactManager {
                     StandardOpenOption.APPEND);
         }
 
-        public static void Search() throws IOException {
-            Scanner search = new Scanner(System.in);
-            String Search = search.nextLine();
-            Path contactsPath = Paths.get("data", "contacts.txt");
-            List<String> contactsList = Files.readAllLines(contactsPath);
+//        public static void Search() throws IOException {
+//            Scanner search = new Scanner(System.in);
+//            String Search = search.nextLine();
+//            Path contactsPath = Paths.get("data", "contacts.txt");
+//            List<String> contactsList = Files.readAllLines(contactsPath);
+//
+//            for (String contact : contactsList) {
+//                if(contactsList.contains(Search)){
+//                    System.out.println(viewContacts());
+//                }
+//            }
+//        }
 
-            for (String contact : contactsList) {
-                if(contactsList.contains(Search)){
-                    System.out.println(viewContacts());
-                }
-            }
+//        public static void delete() throws IOException {
+//        Scanner delete = new Scanner(System.in);
+//            System.out.println("Who would you like to delete");
+//            String Choice = delete.nextLine();
+//            List<String> L = Files.readAllLines(Paths.get("src", "contacts.txt"));
+//            List<String> updatedList = new ArrayList<>();
+//            for(String line : L){
+//                if(line.toLowerCase().contains(Choice)){
+//                    continue;
+//                }
+//                updatedList.add(line);
+//            }
+//            Files.write(Paths.get("src", "context.txt"), updatedList);
+//        }
+
+
+        public static void delete() throws IOException {
+        Scanner delete = new Scanner(System.in);
+            System.out.println("who would like to delete");
+            String Choice = delete.nextLine();
+           List<String> lines = Files.readAllLines(Paths.get("src", "contacts.txt"));
+           List<String> newList = new ArrayList<>();
+
+        for (String line : lines) {
+            if (line.contains(Choice)) {
+            lines.remove(Choice);
+            continue;
+    }
+         newList.add(line);
+}
+
+Files.write(Paths.get("src", "contacts.txt"), newList);
         }
 
+
+//    Scanner Search = new Scanner(System.in);
+//            System.out.println("who would like to search");
+//    String search = Search.nextLine();
+//    List<String> lines = Files.readAllLines(Paths.get("data", "contacts.txt"));
+//    List<String> newList = new ArrayList<>();
+//
+//for (String line : lines) {
+//        if (line.equals(search)) {
+//            System.out.println(user);
+//        }
+//        newList.add(line);
+//    }
+//
+//Files.write(Paths.get("data", "contacts.txt"), newList);
 }
