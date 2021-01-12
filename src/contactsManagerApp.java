@@ -7,5 +7,4 @@ public class contactsManagerApp {
         System.out.println(contactManager.Menu());
     }
 
-
 }
